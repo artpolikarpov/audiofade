@@ -2,33 +2,33 @@
  *  © Артём Поликарпов, 2012 | https://github.com/artpolikarpov/audiofade
  */
 (function ($) {
-  var _options = {
-    time: 333,
-    volume: null,
-    onComplete: null
-  }
+  var time = 333;
   $.fn.audioFadeOut = function (options) {
-    options = $.extend({}, _options, options);
-    console.log(options);
+    options = $.extend({time: time}, options);
     this.each(function () {
       $(this).stop().animate({volume: 0}, options.time, function () {
         this.pause();
+        if (options.onComplete) {
+          options.onComplete.call(this);
+        }
       });
     });
     return this;
-  }
+  };
   $.fn.audioFadeIn = function (options) {
-    options = $.extend({}, _options, options);
-    console.log(options);
+    options = $.extend({volume: 1, time: time}, options);
     this.each(function () {
       this.play();
-      $(this).stop().animate({volume: 1}, options.time);
+      $(this).stop().animate({volume: options.volume}, options.time, function () {
+        if (options.onComplete) {
+          options.onComplete.call(this);
+        }
+      });
     });
     return this;
-  }
+  };
   $.fn.audioFadeTo = function (options) {
-    options = $.extend({}, _options, options);
-    console.log(options);
+    options = $.extend({time: time}, options);
     this.each(function () {
       $(this).stop().animate({volume: options.volume}, options.time, function () {
         if (options.onComplete) {
@@ -37,5 +37,5 @@
       });
     });
     return this;
-  }
+  };
 })(jQuery);
