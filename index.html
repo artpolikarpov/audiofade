@@ -3,14 +3,12 @@
 <head>
   <title>jquery.audiofade.js</title>
   <link href="style.css" rel="stylesheet">
-  <style>
-
-  </style>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://raw.github.com/artpolikarpov/audiofade/master/jquery.audiofade.js"></script>
 
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width"/>
 
   <script type="text/javascript">
     $(function () {
@@ -44,7 +42,7 @@
 
 <div class="b-back"><strong><span style="visibility: hidden;">← </span>jquery.audiofade.js</strong></div>
 
-<p>Методы <tt>play()</tt> и <tt>pause()</tt> делают «чпок», лучше плавно регулировать громкость перед паузой и стартом:</p>
+<p style="margin-right: 100px;">Методы <tt>play()</tt> и <tt>pause()</tt> делают «чпок», лучше плавно регулировать громкость перед паузой и стартом:</p>
 
 <div class="demo">
   <div id="buttons" class="btn-group">
@@ -83,23 +81,32 @@
 <p><tt>$(function () {<br>
   <nobr>&nbsp;&nbsp;$('audio').audioFadeOut();</nobr><br><nobr style="opacity: .5;">&nbsp;&nbsp;// Нежно выключаем все треки на странице</nobr><br><br>
   <nobr>&nbsp;&nbsp;$('#song').audioFadeIn();</nobr><br><nobr style="opacity: .5;">&nbsp;&nbsp;// Выводим в эфир какую-то отдельную песню</nobr><br>
-    });</tt></p>
+  });</tt></p>
 
 <br>
 <p>По умолчанию время фейда — 333 миллисекунды. Задайте любое, например 1,5 секунды:</p>
 <p><tt><nobr>$('audio').audioFadeOut({time: 1500});</nobr></tt></p>
 
 <br>
-<p>С помощью функции <tt>audioFadeTo()</tt> плавно измените громкость аудио до нужного значения (от 0 до 1) за произвольное время, по окончании вызовите нужный колбек:</p>
+<p>Выберите нужную громкость (от 0 до 1) для <nobr>фейд-ина</nobr>, по окончании вызовите нужный колбек:</p>
+<p><tt><nobr>$('audio').audioFadeIn({<br>
+  &nbsp;&nbsp;volume: .75,<br>
+  &nbsp;&nbsp;onComplete: function () {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp; console.log(this); <nobr style="opacity: .5;">// audio element</nobr><br>
+  &nbsp;&nbsp;}<br>
+  });</nobr></tt></p>
+
+<br>
+<p>Функция <tt>audioFadeTo()</tt> делает всё то же самое, но не запускает и не останавливает трек, только изменяет громкость:</p>
 <p><tt><nobr>$('#song').audioFadeTo({<br>
   &nbsp;&nbsp;volume: .5, <nobr style="opacity: .5;">// В половину тише</nobr><br>
-  &nbsp;&nbsp;time: 500, <nobr style="opacity: .5;">&nbsp;// за полсекунды</nobr><br>
-  &nbsp;&nbsp;onComplete: function () {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;this.pause(); <nobr style="opacity: .5;">// Стоп</nobr><br>
-  &nbsp;&nbsp;}<br>
+  &nbsp;&nbsp;time: 5000, <nobr style="opacity: .5;">&nbsp;// за пять секунд</nobr><br>
+  &nbsp;&nbsp;onComplete: dimTheLights <nobr style="opacity: .5;">// ,-)</nobr><br>
   });</nobr><br></tt></p>
 
 <br><br>
 <p>© Артём Поликарпов, 2012</p>
+
+<a href="https://github.com/artpolikarpov/audiofade"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
