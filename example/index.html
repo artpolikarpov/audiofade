@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jquery.audiofade.js</title>
+  <link href="style.css" rel="stylesheet">
+  <style>
+
+  </style>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script type="text/javascript" src="../jquery.audiofade.js"></script>
+
+  <meta charset="utf-8"/>
+
+  <script type="text/javascript">
+    $(function () {
+      // Сравнение play(), pause(), audioFadeIn() and audioFadeOut()
+      var audio = document.getElementById('brothers');
+      var $audio = $(audio);
+      var button = $('button', '#buttons');
+
+      button.on('click', function () {
+        var $this = $(this);
+        button.removeClass('active');
+        $this.addClass('active');
+        var action = $this.data('action');
+
+        if (action === 'play' || action === 'pause') {
+          $audio.stop();
+          audio[action]();
+        } else {
+          $audio[action](); // Вызываем $audio.audioFadeIn(); or $(audio).audioFadeOut();
+        }
+      });
+
+      $audio.on('click', function(){
+        $audio.stop();
+        button.removeClass('active');
+      });
+    });
+  </script>
+</head>
+<body>
+
+<div class="b-back"><strong><span style="visibility: hidden;">← </span>jquery.audiofade.js</strong></div>
+
+<p>Методы <tt>play()</tt> и <tt>pause()</tt> делают «чпок», лучше плавно регулировать громкость перед паузой и стартом:</p>
+
+<div class="demo">
+  <div id="buttons" class="btn-group">
+    <div class="btn-group">
+      <button class="btn" data-action="play" data-synonym="audioFadeIn">play</button>
+      <button class="btn" data-action="pause" data-synonym="audioFadeOut">pause</button>
+    </div>
+    <div class="btn-group">
+      <button class="btn" data-action="audioFadeIn" data-synonym="play">audioFadeIn</button>
+      <button class="btn" data-action="audioFadeOut" data-synonym="pause">audioFadeOut</button>
+    </div>
+  </div>
+
+  <div>
+    <audio id="brothers" controls preload="auto" autobuffer>
+      <source src="grustnye-skazki.mp3"/>
+      <source src="grustnye-skazki.ogg"/>
+    </audio>
+  </div>
+</div>
+
+<br><br>
+
+<h2>Загрузка</h2>
+<p><a class="btn btn-primary btn-large" href="">jquery.audiofade.js</a></p>
+
+<br>
+<h2>Установка</h2>
+<p>Подключите свежую версию <a href="http://jquery.com">Джейквери</a> и <tt>jquery.audiofade.js</tt>:</p>
+<p><tt>&lt;script src="jquery.js">&lt;/script><br>
+  &lt;script src="jquery.audiofade.js">&lt;/script></tt></p>
+
+<br>
+<h2>Использование</h2>
+<p>Вызовите <tt>audioFadeOut()</tt> или <tt>audioFadeIn()</tt> на нужных вам <nobr>аудио-элементах</nobr>:</p>
+<p><tt>$(function () {<br>
+  <nobr>&nbsp;&nbsp;$('audio').audioFadeOut();</nobr><br><nobr style="opacity: .5;">&nbsp;&nbsp;// Нежно выключаем все треки на странице</nobr><br><br>
+  <nobr>&nbsp;&nbsp;$('#song').audioFadeIn();</nobr><br><nobr style="opacity: .5;">&nbsp;&nbsp;// Выводим в эфир какую-то отдельную песню</nobr><br>
+    });</tt></p>
+
+<br>
+<p>По умолчанию время фейда — 333 миллисекунды. Задайте любое, например 1,5 секунды:</p>
+<p><tt><nobr>$('audio').audioFadeOut({time: 1500});</nobr></tt></p>
+
+<br>
+<p>С помощью функции <tt>audioFadeTo()</tt> плавно измените громкость аудио до нужного значения (от 0 до 1) за произвольное время:</p>
+<p><tt><nobr>$('audio').audioFadeTo({volume: .5, time: 500});</nobr><br><nobr style="opacity: .5;">// В половину тише за полсекунды</nobr></tt></p>
+
+<br><br>
+<p>© Артём Поликарпов, 2012</p>
+</body>
+</html>
